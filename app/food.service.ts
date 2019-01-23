@@ -1,20 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-
 @Injectable()
 export class FoodService {
   constructor(
-    private http: Http,
-    private api: string
-  ) {
-    console.log(this.api);
+    private http: Http
+  ) {}
+  getSides(): Observable<any[]> {
+    return this.http.get('/api/sides')
+      .map(response => response.json());
   }
-  getFood(): Observable<any[]> {
-    return this.http.get(this.api)
+  getPizzas(): Observable<any[]> {
+    return this.http.get('/api/pizzas')
+      .map(response => response.json());
+  }
+  getDrinks(): Observable<any[]> {
+    return this.http.get('/api/drinks')
       .map(response => response.json());
   }
 }
